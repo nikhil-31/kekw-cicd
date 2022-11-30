@@ -15,20 +15,20 @@ jobs:
     steps:
       - run:
           name: "Say your name"
-          command: "echo Nikhil Bhaskar! > output.txt"
+          command: "echo Nikhil Bhaskar! > ~/output.txt"
       - persist_to_workspace:
           root: ~/
           paths:
-            - "output.txt"
+            - output.txt
   output-name:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
           at: ~/
       - run:
           name: "Output the contents of the file"
-          command: "cat output.txt"
+          command: "cat ~/output.txt"
       
 
 # Invoke jobs via workflows
