@@ -40,12 +40,19 @@ jobs:
       - run:
           name: "Output the contents of the file"
           command: "cat ~/output.txt"
+  my-job:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: exit 1
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
       
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
-      - print-pipeline-id
-      - save-name
-      - output-name
+      - my-job
